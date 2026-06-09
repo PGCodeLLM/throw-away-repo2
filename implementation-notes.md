@@ -16,3 +16,4 @@ These are intentional fixtures; leave them alone unless a wiki edit targets them
 
 ## Runs
 - 2026-06-09: "Multiply Feature" page (created) → added `multiply(a, b)` with one-line docstring to `src/calculator.py`. SHA 000...0 (created event default).
+- 2026-06-09 (re-run): SHA 000...0 was already in processed-edits, BUT `multiply` was NOT present in `src/calculator.py` on `main` (prior PR never merged). Did NOT blindly noop on the dedup — verified code vs wiki, found the delta missing, re-implemented and opened a fresh PR. Lesson: the all-zeros created-event SHA is a degenerate dedup key (constant across all created events), so processed-edits cannot prove the code matches the spec. Always verify the source reflects the wiki before skipping.
